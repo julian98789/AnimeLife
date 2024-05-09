@@ -9,11 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "mysql2": "^3.9.7",
     "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.51.4",
-    "react-icons": "^5.2.1"
+    "react-icons": "^5.2.1",
+    "sweetalert2": "^11.10.8"
   },
   "devDependencies": {
     "eslint": "^8",
