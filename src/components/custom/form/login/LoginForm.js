@@ -81,7 +81,7 @@ const LoginForm = () => {
         className="w-full max-w-[350px] h-auto bg-[#1d2028] rounded-xl flex flex-col justify-center items-center gap-2 ">
 
         <div className=" py-7">
-            <img className="h-28 w-auto  " src="/otaku.png" alt="your company" />
+            <img className="h-28 w-auto cursor-none " src="/otaku.png" alt="your company" />
         </div>
         <div className="flex flex-col gap-5">
 
