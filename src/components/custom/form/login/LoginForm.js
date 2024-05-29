@@ -60,10 +60,6 @@ const LoginForm = () => {
                     success()
                     window.location.href = "/admin"
                     break;
-                case 'cliente':
-                    success()
-                    window.location.href = "/client"
-                    break;
                 default:
                     success()
                     window.location.href = "/moderator"

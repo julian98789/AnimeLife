@@ -5,7 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-	title: "Animex",
+	title: "AnimeLife",
 	description: "El mundo del anime esta en ti",
 };
 

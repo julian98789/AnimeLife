@@ -1,29 +1,17 @@
 'use client'
-import useSession from "@/hook/useSession";
-import { useState } from "react";
-import { AiOutlineCloseCircle } from "react-icons/ai";
+import { HiMiniArrowRightStartOnRectangle } from "react-icons/hi2";
 import { FaHome } from "react-icons/fa";
 import Link from 'next/link'
 import { Macondo_Swash_Caps } from "next/font/google"
+
+
 const Macon = Macondo_Swash_Caps({
     subsets: ['latin'],
     weight: '400',
 })
 
 const Menu = () => {
-    const { logout } = useSession()
-    const [cerrarSession, setCerrarSession] = useState(false);
 
-
-
-    const session = () => {
-        setCerrarSession(true);
-    };
-
-    if (cerrarSession) {
-        logout()
-        window.location.href = "/login"
-    }
 
     return (
         <div className="w-full mt-5 text-neutral-800">
@@ -45,22 +33,15 @@ const Menu = () => {
                     </div>
                 </div>
 
-                {/* <div className="flex flex-row justify-start items-end mt-56 p-2 cursor-pointer hover:bg-red-700 hover:text-white  duration-75 rounded-lg ">
+                <div className="flex flex-row justify-start items-end mt-72 p-2 cursor-pointer hover:bg-blue-700 hover:text-white  duration-75 rounded-lg ">
                     <div >
-                        <AiOutlineCloseCircle className="text-3xl" />
+                        <HiMiniArrowRightStartOnRectangle className="text-3xl" />
                     </div>
                     <div className="px-5">
-                        <a onClick={session} >Cerrar sesion</a>
+                        <Link href="/login">Iniciar Sesion</Link>
                     </div>
-                    {cerrarSession}
-                </div> */}
-
-
-
-
-
+                </div>
             </div>
-
         </div>
     )
 }

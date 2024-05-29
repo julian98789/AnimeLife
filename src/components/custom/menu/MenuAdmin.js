@@ -3,6 +3,7 @@ import useSession from "@/hook/useSession";
 import { useState } from "react";
 import { MdTableRestaurant } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
+import { MdAdminPanelSettings } from "react-icons/md";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { FaHome } from "react-icons/fa";
 import Link from 'next/link'
@@ -24,7 +25,7 @@ const MenuAdmin = () => {
 
     if (cerrarSession) {
         logout()
-        window.location.href = "/login"
+        window.location.href = "/"
     }
 
     return (
@@ -49,21 +50,21 @@ const MenuAdmin = () => {
 
                 <div className="flex flex-row justify-start items-end p-2 cursor-pointer hover:bg-neutral-300  duration-75 rounded-lg ">
                     <div>
-                        <MdTableRestaurant className="text-3xl" />
+                        <MdAdminPanelSettings className="text-3xl" />
                     </div>
                     <div className="px-5">
-                        <Link href="/">Eliminar Anime</Link>
+                        <Link href="/admin">Admin</Link>
                     </div>
                 </div>
-
-                <div className="flex flex-row justify-start items-end p-2 cursor-pointer hover:bg-neutral-300  duration-75 rounded-lg ">
+                {/*  <div className="flex flex-row justify-start items-end p-2 cursor-pointer hover:bg-neutral-300  duration-75 rounded-lg ">
                     <div >
                         <FaUser className="text-3xl" />
                     </div>
                     <div className="px-5">
                         <a href="/employe">Agregar Modelador</a>
                     </div>
-                </div>
+                </div>*/}
+
 
 
                 <div className="flex flex-row justify-start items-end mt-56 p-2 cursor-pointer hover:bg-red-700 hover:text-white  duration-75 rounded-lg ">
