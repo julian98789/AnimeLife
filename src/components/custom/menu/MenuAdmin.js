@@ -8,6 +8,8 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import { FaHome } from "react-icons/fa";
 import Link from 'next/link'
 import { Macondo_Swash_Caps } from "next/font/google"
+import { Loading } from "../alerts/Alerts";
+import Swal from "sweetalert2";
 const Macon = Macondo_Swash_Caps({
     subsets: ['latin'],
     weight: '400',
@@ -16,6 +18,9 @@ const Macon = Macondo_Swash_Caps({
 const MenuAdmin = () => {
     const { logout } = useSession()
     const [cerrarSession, setCerrarSession] = useState(false);
+    const [animes, setAnimes] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+
 
 
 
@@ -27,6 +32,31 @@ const MenuAdmin = () => {
         logout()
         window.location.href = "/"
     }
+    const fetchAnimes = () => {
+        if (isLoading) {
+            return;
+        }
+
+        const stopLoading = Loading(); // Show loading alert and get a function to stop it
+
+        setIsLoading(true);
+        fetch('/api/extract')
+            .then(response => response.json())
+            .then(data => {
+                setAnimes(data);
+                console.log('Data extracted successfully:', data);
+                stopLoading(); // Stop the loading alert
+                Swal.fire('Exitoso', `Se han cargado ${data.length} animes`, 'success'); // Show success alert
+            })
+            .catch(err => {
+                console.error('Failed to extract data:', err.message);
+                stopLoading(); // Stop the loading alert
+                Swal.fire('Error', 'Failed to fetch data', 'error'); // Show error alert
+            })
+            .finally(() => {
+                setIsLoading(false);
+            });
+    };
 
     return (
         <div className="w-full mt-5 text-neutral-800">
@@ -56,14 +86,14 @@ const MenuAdmin = () => {
                         <Link href="/admin">Admin</Link>
                     </div>
                 </div>
-                {/*  <div className="flex flex-row justify-start items-end p-2 cursor-pointer hover:bg-neutral-300  duration-75 rounded-lg ">
+                <div className="flex flex-row justify-start items-end p-2 cursor-pointer hover:bg-neutral-300  duration-75 rounded-lg ">
                     <div >
                         <FaUser className="text-3xl" />
                     </div>
                     <div className="px-5">
-                        <a href="/employe">Agregar Modelador</a>
+                        <button onClick={fetchAnimes} disabled={isLoading}>Agregar Animes</button>
                     </div>
-                </div>*/}
+                </div>
 
 
 

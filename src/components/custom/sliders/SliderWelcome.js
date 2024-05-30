@@ -3,9 +3,11 @@ import { FaPlay } from 'react-icons/fa';
 
 const Carousel = () => {
     const [animes, setAnimes] = useState([]);
-
     useEffect(() => {
-        fetch('/api/extract')
+        fetchAnimes();
+    }, []);
+    const fetchAnimes = () => {
+        fetch('/api/select')
             .then(response => response.json())
             .then(data => {
                 setAnimes(data);
@@ -14,7 +16,8 @@ const Carousel = () => {
             .catch(err => {
                 console.error('Failed to extract data:', err.message);
             });
-    }, []);
+    };
+
 
     return (
         <div className="flex flex-wrap justify-center overflow-x-auto scrollbar-hide cursor-pointer">

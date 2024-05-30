@@ -2,22 +2,22 @@
 
 import axios from 'axios';
 import cheerio from 'cheerio';
-import fs from 'fs';
 import { NextResponse } from 'next/server';
+import pool from '@/db/MysqlConection';
 
 export const GET = async (req) => {
     const baseUrl = 'https://www3.animeflv.net/';
-    const animes = [];
-    const filePath = './src/components/scraping/ultimePremieres/animes.json';
+
 
     try {
         const { data } = await axios.get(baseUrl);
         const $ = cheerio.load(data);
 
-        $('.ListAnimes .Anime').each((i, elem) => {
+        $('.ListAnimes .Anime').each(async (i, elem) => {
             let title = $(elem).find('> a > .Title').text();
             let image = $(elem).find('.Image img').attr('src');
             const isPremiere = $(elem).find('.Estreno').length > 0;
+            let url = $(elem).find('> a').attr('href');
 
 
 
@@ -25,15 +25,15 @@ export const GET = async (req) => {
             if (image && !image.startsWith('http')) {
                 image = baseUrl + image;
             }
+            if (url && !url.startsWith('http')) {
+                url = baseUrl + url;
+            }
 
-            animes.push({ title, image, isPremiere });
+            await pool.query('INSERT INTO ultimepremieres (title, image, isPremiere,url) VALUES (?, ?, ?, ?)', [title, image, isPremiere, url]);
         });
+        const [rows] = await pool.query('SELECT * FROM ultimepremieres');
 
-        fs.writeFileSync(filePath, JSON.stringify(animes, null, 2));
-
-        // Read the file and send its content as response
-        const fileContent = fs.readFileSync(filePath, 'utf8');
-        return NextResponse.json(JSON.parse(fileContent));
+        return NextResponse.json(rows);
     } catch (err) {
         console.error(err);
     }
