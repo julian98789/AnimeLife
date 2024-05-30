@@ -1,37 +1,38 @@
 // src/routes/api/extract.js
 
-import axios from 'axios';
-import cheerio from 'cheerio';
+import puppeteer from 'puppeteer';
 import { NextResponse } from 'next/server';
 import pool from '@/db/MysqlConection';
 
 export const GET = async (req) => {
-    const baseUrl = 'https://www3.animeflv.net/';
-
+    const baseUrl = 'https://jkanime.net/';
 
     try {
-        const { data } = await axios.get(baseUrl);
-        const $ = cheerio.load(data);
+        const browser = await puppeteer.launch({ headless: false });
+        const [page] = await browser.pages();  // Get the initial page
 
-        $('.ListAnimes .Anime').each(async (i, elem) => {
-            let title = $(elem).find('> a > .Title').text();
-            let image = $(elem).find('.Image img').attr('src');
-            const isPremiere = $(elem).find('.Estreno').length > 0;
-            let url = $(elem).find('> a').attr('href');
+        await page.goto(baseUrl, { waitUntil: 'domcontentloaded' });
 
+        const animes = await page.evaluate(() => {
+            const animeItems = Array.from(document.querySelectorAll('.trending__anime .anime__item'));
+            return animeItems.map(elem => {
+                const title = elem.querySelector('h5 a').innerText;
+                const image = elem.querySelector('.anime__item__pic').style.backgroundImage.slice(5, -2);
+                const info = Array.from(elem.querySelectorAll('.anime__item__text ul li')).map(li => li.innerText);
+                const isPremiere = info.includes('En emision');
+                const url = elem.querySelector('h5 a').href;
 
+                return { title, image, info, isPremiere, url };
+            });
+        });// Log the extracted data
 
-            // Add the base URL if the image URL is relative
-            if (image && !image.startsWith('http')) {
-                image = baseUrl + image;
-            }
-            if (url && !url.startsWith('http')) {
-                url = baseUrl + url;
-            }
+        for (const anime of animes) {
+            await pool.query('INSERT INTO ultimepremieres (title, image, isPremiere, url) VALUES (?, ?, ?, ?)', [anime.title, anime.image, anime.isPremiere, anime.url]);
+        }
 
-            await pool.query('INSERT INTO ultimepremieres (title, image, isPremiere,url) VALUES (?, ?, ?, ?)', [title, image, isPremiere, url]);
-        });
         const [rows] = await pool.query('SELECT * FROM ultimepremieres');
+
+        await browser.close();
 
         return NextResponse.json(rows);
     } catch (err) {

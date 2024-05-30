@@ -47,6 +47,14 @@ const MenuAdmin = () => {
                 console.log('Data extracted successfully:', data);
                 stopLoading(); // Stop the loading alert
                 Swal.fire('Exitoso', `Se han cargado ${data.length} animes`, 'success'); // Show success alert
+                return fetch('/api/episode', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data), // Send the data from the GET request in the body of the POST request
+                });
+
             })
             .catch(err => {
                 console.error('Failed to extract data:', err.message);

@@ -8,7 +8,7 @@ const admin = () => {
             <>
                 <div>
                     <div>
-                        <div className="flex items-center justify-end mt-4 gap-6 cursor-pointer duration-75 rounded-lg">
+                        <div className="flex items-center justify-end mt-4 gap-6  duration-75 rounded-lg">
                             <NavBarAdmin />
                         </div>
 
