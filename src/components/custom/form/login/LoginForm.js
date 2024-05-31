@@ -54,15 +54,12 @@ const LoginForm = () => {
 
     const processData = (data) => {
         if (data.length == 1) {
-            login(data[0].rol)
+            login(data[0])
+
             switch (data[0].rol) {
                 case 'admin':
                     success()
                     window.location.href = "/admin"
-                    break;
-                case 'cliente':
-                    success()
-                    window.location.href = "/client"
                     break;
                 default:
                     success()
