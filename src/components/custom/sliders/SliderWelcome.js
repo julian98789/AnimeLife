@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { FaPlay } from 'react-icons/fa';
+import Cookies from 'js-cookie';
 
 const Carousel = () => {
     const [animes, setAnimes] = useState([]);
@@ -18,11 +19,15 @@ const Carousel = () => {
             });
     };
 
+    const handleClick = (anime) => {
+        Cookies.set('selectedAnime', JSON.stringify(anime)); // Save the anime data in a cookie
+        window.location.href = '/descriptionAnime'; // Redirect to the other page
+    };
 
     return (
         <div className="flex flex-wrap justify-center overflow-x-auto scrollbar-hide cursor-pointer">
             {animes.map((anime, index) => (
-                <div key={index} className="m-2 w-52 group">
+                <div key={index} className="m-2 w-52 group" onClick={() => handleClick(anime)}>
                     <div className="block h-72 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 relative">
                         <img src={anime.image} alt={anime.title} className="h-full w-full object-cover rounded-t-lg" />
                         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-200">
