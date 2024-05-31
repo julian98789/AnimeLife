@@ -14,7 +14,7 @@ export default function RootLayout({ children }) {
 		<html lang="es">
 
 			<body className={`${inter.className} w-full  bg-slate-400`}>
-				<main className="w-full h-full  ">
+				<main className="w-full h-screen  ">
 					{children}
 				</main>
 			</body>
