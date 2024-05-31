@@ -23,18 +23,20 @@ export const POST = async () => {
             const episodes = await page.$$eval('#episodes-content .epcontent .anime__item', episodes => episodes.map(episode => {
                 const url = episode.querySelector('div a').href;
                 const episodeNumber = episode.querySelector('ul li span').textContent;
-                return { url, episodeNumber };
+                const imageUrl = episode.querySelector('.anime__item__pic.homemini.set-bg').dataset.setbg;
+                return { url, episodeNumber, imageUrl };
             }));
+
+            const synopsis = await page.$eval('.tab.sinopsis', el => el.textContent);
 
             console.log(`Found ${episodes.length} episodes`);
 
-            for (const { url: episodeUrl, episodeNumber: episodeNumber } of episodes) {
+            for (const { url: episodeUrl, episodeNumber: episodeNumber, imageUrl: imageUrl } of episodes) {
                 console.log(`Inserting episode:${row.id}, ${episodeUrl}, ${Number}`);
-                // Include the title in the database insertion
-                await pool.query('INSERT INTO episodes (title, url, animeTitle, ultimepremieres_id) VALUES (?, ?, ?, ?)', [title, episodeUrl, episodeNumber, row.id])
+                // Include the title, image URL and synopsis in the database insertion
+                await pool.query('INSERT INTO episodes (title, url, animeTitle, ultimepremieres_id,  sinopsis, image) VALUES (?, ?, ?, ?, ?, ?)', [title, episodeUrl, episodeNumber, row.id, synopsis, imageUrl])
                     .catch(err => console.error(`Error inserting into episodes: ${err}`));
             }
-
         }
 
         await browser.close();
