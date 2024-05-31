@@ -54,7 +54,8 @@ const LoginForm = () => {
 
     const processData = (data) => {
         if (data.length == 1) {
-            login(data[0].rol)
+            login(data[0])
+
             switch (data[0].rol) {
                 case 'admin':
                     success()

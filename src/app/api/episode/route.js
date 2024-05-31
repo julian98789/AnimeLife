@@ -9,7 +9,7 @@ export const POST = async () => {
 
     try {
         // Get the titles and URLs from the ultimePremieres table
-        const [rows] = await pool.query('SELECT title, url FROM ultimepremieres');
+        const [rows] = await pool.query('SELECT id, title, url FROM ultimepremieres');
 
         const browser = await puppeteer.launch({ headless: false });
         const page = await browser.newPage();
@@ -29,9 +29,9 @@ export const POST = async () => {
             console.log(`Found ${episodes.length} episodes`);
 
             for (const { url: episodeUrl, episodeNumber: episodeNumber } of episodes) {
-                console.log(`Inserting episode: ${episodeUrl}, ${Number}`);
+                console.log(`Inserting episode:${row.id}, ${episodeUrl}, ${Number}`);
                 // Include the title in the database insertion
-                await pool.query('INSERT INTO episodes (title, url, animeTitle ) VALUES (?, ?, ?)', [title, episodeUrl, episodeNumber])
+                await pool.query('INSERT INTO episodes (title, url, animeTitle, ultimepremieres_id) VALUES (?, ?, ?, ?)', [title, episodeUrl, episodeNumber, row.id])
                     .catch(err => console.error(`Error inserting into episodes: ${err}`));
             }
 
@@ -47,17 +47,17 @@ export const POST = async () => {
 };
 
 export const PUT = async () => {
-    const baseUrl = 'https://www3.animeflv.net/';
+    const baseUrl = 'https://jkanime.net/';
 
     try {
         // Get the titles and URLs from the episodes table
-        const [rows] = await pool.query('SELECT title, url FROM episodes');
+        const [rows] = await pool.query('SELECT id ,title, animeTitle, url FROM episodes');
 
         const browser = await puppeteer.launch({
-            args: ['--disable-features=PreloadSafeBrowsingService']
+            args: ['--disable-features=PreloadSafeBrowsingService'],
+            headless: false
         });
         const page = await browser.newPage();
-
 
         for (const row of rows) {
             const url = row.url;
@@ -68,22 +68,10 @@ export const PUT = async () => {
                 continue;
             }
 
-            const page = await browser.newPage();
-
             console.log(`Scraping URL: ${url}`);
             await page.goto(url, { timeout: 60000 });
 
-            // Wait for the server options to load
-            await page.waitForSelector('ul.CapiTnv li[data-id="1"] a');
-            console.log(await page.content());
-
-            // Then click on the server option and wait for navigation
-            await Promise.all([
-                page.waitForNavigation(),
-                page.click('ul.CapiTnv li[data-id="1"] a'),
-            ]);
-
-            // Wait for the new iframe to load
+            // Wait for the iframe to load
             await page.waitForSelector('#video_box iframe');
 
             // Get the iframe src
@@ -92,15 +80,16 @@ export const PUT = async () => {
             if (videoUrl) {
                 console.log(`Video URL: ${videoUrl}`);
 
-                console.log(`Inserting episode detail: ${row.title}, ${videoUrl}`);
-                await pool.query('INSERT INTO detailsepisode (title, url) VALUES (?, ?)', [row.title, videoUrl])
+                console.log(`Inserting episode detail:${row.id},${row.title}, ${row.animeTitle}, ${videoUrl}`);
+                await pool.query('INSERT INTO detailepisode (title, url, episodes_id, nameAnime) VALUES (?, ?, ?, ?)', [row.animeTitle, videoUrl, row.id, row.title])
                     .catch(err => console.error(`Error inserting into detailsepisode: ${err}`));
             } else {
                 console.error('Failed to extract video URL from iframe');
             }
-
-            await page.close();
         }
+
+        // Close the page after all URLs have been processed
+        await page.close();
 
         return NextResponse.json({ status: 200, message: 'Episode details inserted successfully' });
     } catch (err) {

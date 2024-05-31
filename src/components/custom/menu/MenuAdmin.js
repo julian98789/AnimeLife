@@ -21,6 +21,16 @@ const MenuAdmin = () => {
     const [animes, setAnimes] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
+    let userData;
+    let id;
+    if (typeof window !== 'undefined') {
+        userData = JSON.parse(sessionStorage.getItem('userData'));
+        id = userData?.id;
+    }
+    console.log(id)
+
+
+
 
 
 
@@ -40,7 +50,13 @@ const MenuAdmin = () => {
         const stopLoading = Loading(); // Show loading alert and get a function to stop it
 
         setIsLoading(true);
-        fetch('/api/extract')
+        fetch(`/api/extract`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id: id }), // Send the user ID in the body of the GET request
+        })
             .then(response => response.json())
             .then(data => {
                 setAnimes(data);
@@ -54,7 +70,23 @@ const MenuAdmin = () => {
                     },
                     body: JSON.stringify(data), // Send the data from the GET request in the body of the POST request
                 });
-
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Here you can handle the response from the POST request if needed
+                // Then make the PUT request
+                return fetch('/api/episode', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data), // Send the data from the POST request in the body of the PUT request
+                });
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Here you can handle the response from the PUT request if needed
+                console.log('Data updated successfully:', data);
             })
             .catch(err => {
                 console.error('Failed to extract data:', err.message);

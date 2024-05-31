@@ -4,8 +4,11 @@ import puppeteer from 'puppeteer';
 import { NextResponse } from 'next/server';
 import pool from '@/db/MysqlConection';
 
-export const GET = async (req) => {
+export const POST = async (req, res) => {
+    const data = await req.json();
+    const id = data.id;
     const baseUrl = 'https://jkanime.net/';
+
 
     try {
         const browser = await puppeteer.launch({ headless: false });
@@ -27,7 +30,7 @@ export const GET = async (req) => {
         });// Log the extracted data
 
         for (const anime of animes) {
-            await pool.query('INSERT INTO ultimepremieres (title, image, isPremiere, url) VALUES (?, ?, ?, ?)', [anime.title, anime.image, anime.isPremiere, anime.url]);
+            await pool.query('INSERT INTO ultimepremieres (title, image, isPremiere, url, id_user) VALUES (?, ?, ?, ?, ?)', [anime.title, anime.image, anime.isPremiere, anime.url, id]);
         }
 
         const [rows] = await pool.query('SELECT * FROM ultimepremieres');
