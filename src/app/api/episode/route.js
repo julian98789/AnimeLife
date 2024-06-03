@@ -18,7 +18,7 @@ export const POST = async () => {
             const url = row.url;
             const title = row.title; // Get the title from the row
             console.log(`Scraping URL: ${url}`);
-            await page.goto(url);
+            await page.goto(url, { timeout: 100000 });
 
             const episodes = await page.$$eval('#episodes-content .epcontent .anime__item', episodes => episodes.map(episode => {
                 const url = episode.querySelector('div a').href;
@@ -71,7 +71,7 @@ export const PUT = async () => {
             }
 
             console.log(`Scraping URL: ${url}`);
-            await page.goto(url, { timeout: 60000 });
+            await page.goto(url, { timeout: 100000 });
 
             // Wait for the iframe to load
             await page.waitForSelector('#video_box iframe');
