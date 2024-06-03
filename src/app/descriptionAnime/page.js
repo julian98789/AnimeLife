@@ -17,7 +17,7 @@ const descriptionAnime = () => {
                     {role === 'admin' ? <div className="w-full flex flex-col fixed top-0 left-0 right-0 z-50"><NavBarAdmin /> </div> : <div > <NavBarMenu /> </div>}
                     <div className="w-full flex justify-center items-center">
                         <div className=" pt-16 w-full">
-                            <AnimeInstance className="cursor-pointer" />
+                            <AnimeInstance />
                         </div>
                     </div>
                 </div>
