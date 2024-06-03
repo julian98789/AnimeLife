@@ -14,17 +14,17 @@ const Menu = () => {
 
 
     return (
-        <div className="w-full mt-5 text-neutral-800">
+        <div className="w-full h-screen mt-5 text-neutral-800">
             <div className="flex justify-center">
                 <div className="flex-col">
-                    <img className="w-[120px] h-[120px]" src="/anime.png" alt="AnimeLife" />
-                    <div className={` text-emerald-500 text-center text-2xl font-medium ${Macon.className}`}>
+                    <img className="w-[120px] h-[120px]" src="/demonio.png" alt="AnimeLife" />
+                    <div className={` text-red-600 text-center text-3xl font-bold ${Macon.className}`}>
                         <span className="w-2">AnimeLife</span>
                     </div>
                 </div>
             </div>
             <div>
-                <div className="flex flex-row justify-start items-end p-2 cursor-pointer hover:bg-neutral-300  duration-75 rounded-lg ">
+                <div className="flex flex-row justify-start items-end p-2 mt-4 cursor-pointer hover:bg-neutral-300  duration-75 rounded-lg ">
                     <div  >
                         <FaHome className="text-3xl " />
                     </div>
@@ -33,7 +33,7 @@ const Menu = () => {
                     </div>
                 </div>
 
-                <div className="flex flex-row justify-start items-end mt-72 p-2 cursor-pointer hover:bg-blue-700 hover:text-white  duration-75 rounded-lg ">
+                <div className="flex flex-row justify-start items-end mt-64 p-2 cursor-pointer hover:bg-green-600 hover:text-white  duration-75 rounded-lg ">
                     <div >
                         <HiMiniArrowRightStartOnRectangle className="text-3xl" />
                     </div>
