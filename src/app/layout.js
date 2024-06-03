@@ -13,11 +13,13 @@ export default function RootLayout({ children }) {
 	return (
 		<html lang="es">
 
-			<body className={`${inter.className} w-full  bg-slate-400`}>
-				<main className="w-full h-screen  ">
-					{children}
-				</main>
-			</body>
+<body className={`${inter.className} w-full overflow-hidden`}>
+        <div className="w-full h-screen bg-gradient-to-b from-black to-neutral-800 overflow-y-auto">
+          <main className="min-h-screen">
+            {children}
+          </main>
+        </div>
+      </body>
 		</html>
 	);
 }
