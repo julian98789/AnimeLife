@@ -137,7 +137,7 @@ const MenuAdmin = () => {
 
 
 
-                <div className="flex flex-row justify-start items-end mt-56 p-2 cursor-pointer hover:bg-red-700 hover:text-white  duration-75 rounded-lg ">
+                <div className="flex flex-row justify-start items-end mt-48 p-2 cursor-pointer hover:bg-red-700 hover:text-white  duration-75 rounded-lg ">
                     <div >
                         <AiOutlineCloseCircle className="text-3xl" />
                     </div>

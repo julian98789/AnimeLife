@@ -1,3 +1,4 @@
+'use client'
 import AnimeInstance from "@/components/custom/animeinstance/AnimeInstance";
 import NavBarMenu from "@/components/custom/navbar/NavBarMenu";
 import NavBarAdmin from "@/components/custom/navbar/NavBarAdmin";
