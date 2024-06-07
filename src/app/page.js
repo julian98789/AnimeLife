@@ -26,7 +26,7 @@ export default function Home() {
           ><NavBarAdmin /> </div> : <div > <NavBarMenu /> </div>}
           <div className="flex justify-center items-center ">
             <div className=" flex justify-center items-start flex-col pt-20 ">
-              <div className={`text-neutral-50 text-3xl ml-20 font-bold pb-4 ${Macon.className}`}>Los mejores animes de temporada</div>
+            <div className={`text-neutral-50 md:text-3xl text-2xl ml-5 md:ml-20  font-bold pb-4 ${Macon.className}`}>Los mejores animes de temporada</div>
               <Carousel />
             </div>
           </div>
