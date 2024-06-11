@@ -26,10 +26,10 @@ const Carousel = () => {
 
     return (
 
-        <div className="w-full flex flex-wrap justify-center overflow-x-auto scrollbar-hide cursor-pointer mx-[-15px]">
+        <div className="w-full flex flex-wrap justify-center overflow-x-auto cursor-default scrollbar-hide mx-[-15px]">
             {animes.map((anime, index) => (
                 <div key={index} className="m-2 w-[177px] sm:w-[177px] lg:w-[182px] group" onClick={() => handleClick(anime)}>
-                    <div className="block h-72 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 relative transition-transform duration-500 ease-in-out hover:scale-105">
+                    <div className="block h-72 bg-white border border-gray-200 rounded-lg cursor-pointer shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 relative transition-transform duration-500 ease-in-out hover:scale-105">
                         <img src={anime.image} alt={anime.title} className="h-full w-full object-cover rounded-t-lg " />
                         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-200">
                             <FaPlay className="text-4xl text-white" />
