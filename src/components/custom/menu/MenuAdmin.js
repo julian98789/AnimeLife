@@ -47,34 +47,32 @@ const MenuAdmin = () => {
             return;
         }
 
-        const stopLoading = Loading(); // Show loading alert and get a function to stop it
-
+        const stopLoading = Loading(); 
         setIsLoading(true);
         fetch(`/api/extract`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ id: id }), // Send the user ID in the body of the GET request
+            body: JSON.stringify({ id: id }), 
         })
             .then(response => response.json())
             .then(data => {
                 setAnimes(data);
                 console.log('Data extracted successfully:', data);
-                stopLoading(); // Stop the loading alert
+                stopLoading(); 
                 Swal.fire('Exitoso', `Se han cargado ${data.length} animes`, 'success'); // Show success alert
                 return fetch('/api/episode', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(data), // Send the data from the GET request in the body of the POST request
+                    body: JSON.stringify(data), 
                 });
             })
             .then(response => response.json())
             .then(data => {
-                // Here you can handle the response from the POST request if needed
-                // Then make the PUT request
+
                 return fetch('/api/episode', {
                     method: 'PUT',
                     headers: {
@@ -131,7 +129,7 @@ const MenuAdmin = () => {
                         <FaUser className="text-3xl" />
                     </div>
                     <div className="px-5">
-                        <button onClick={fetchAnimes} disabled={isLoading}>Agregar Animes</button>
+                        <button onClick={fetchAnimes} disabled={isLoading}>Actualizar Animes</button>
                     </div>
                 </div>
 
