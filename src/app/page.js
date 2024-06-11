@@ -1,9 +1,13 @@
 'use client'
-import SliderWelcome from "@/components/custom/sliders/SliderWelcome";
 import NavBarMenu from "@/components/custom/navbar/NavBarMenu";
 import Carousel from "@/components/custom/sliders/SliderWelcome";
-import useStore from "@/hook/useSession.js";
 import NavBarAdmin from "@/components/custom/navbar/NavBarAdmin";
+import { Macondo_Swash_Caps } from "next/font/google"
+
+const Macon = Macondo_Swash_Caps({
+  subsets: ['latin'],
+  weight: '400',
+})
 export default function Home() {
   // Get user data from sessionStorage
   let userData;
@@ -13,21 +17,21 @@ export default function Home() {
     role = userData?.rol;
   }
 
+
   return (
     <>
       <div className="w-full">
-        <div className="flex items-center justify-end mt-4 gap-6 duration-75 rounded-lg">
-          {role === 'admin' ? <div className="w-full flex flex-col fixed top-0 left-0 right-0 z-50"><NavBarAdmin /> </div> : <div > <NavBarMenu /> </div>}
-          <div className="flex justify-center items-center">
-            <div className="flex-row pt-20 px-8">
-              <div className="text-center text-2xl pb-4">Ultimos animes agregados</div>
-              <Carousel className="cursor-pointer" />
+        <div className="flex items-center  rounded-lg">
+          {role === 'admin' ? <div 
+          ><NavBarAdmin /> </div> : <div > <NavBarMenu /> </div>}
+          <div className="flex justify-center items-center ">
+            <div className=" flex justify-center items-start flex-col pt-20 ">
+            <div className={`text-neutral-50 md:text-3xl text-2xl ml-5 md:ml-20  font-bold pb-4 ${Macon.className}`}>Los mejores animes de temporada</div>
+              <Carousel />
             </div>
           </div>
         </div>
       </div>
     </>
   )
-
 }
-
