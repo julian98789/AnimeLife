@@ -24,7 +24,7 @@ const DescriptionAnime = () => {
     return (
         <>
             <div className="w-full h-screen">
-                <div className="flex items-center duration-75 rounded-lg">
+                <div className="flex items-center rounded-lg">
                     {role === 'admin' ? (
                         <div className="w-full flex flex-col fixed top-0 left-0 right-0 z-50">
                             <NavBarAdmin />

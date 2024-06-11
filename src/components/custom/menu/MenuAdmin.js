@@ -108,7 +108,7 @@ const MenuAdmin = () => {
             </div>
             <div>
                 <a href="/">
-                    <div className="flex flex-row justify-start items-end p-2 cursor-pointer hover:bg-neutral-300  duration-75 rounded-lg ">
+                    <div className="flex flex-row justify-start items-end p-2 cursor-pointer hover:bg-neutral-300 rounded-lg ">
                         <div  >
                             <FaHome className="text-3xl " />
                         </div>
@@ -118,7 +118,7 @@ const MenuAdmin = () => {
                     </div>
                 </a>
 
-                <div className="flex flex-row justify-start items-end p-2 cursor-pointer hover:bg-neutral-300  duration-75 rounded-lg ">
+                <div className="flex flex-row justify-start items-end p-2 cursor-pointer hover:bg-neutral-300  rounded-lg ">
                     <div>
                         <MdAdminPanelSettings className="text-3xl" />
                     </div>
@@ -126,7 +126,7 @@ const MenuAdmin = () => {
                         <Link href="/admin">Admin</Link>
                     </div>
                 </div>
-                <div className="flex flex-row justify-start items-end p-2 cursor-pointer hover:bg-neutral-300  duration-75 rounded-lg ">
+                <div className="flex flex-row justify-start items-end p-2 cursor-pointer hover:bg-neutral-300  rounded-lg ">
                     <div >
                         <MdOutlineUpdate className="text-3xl" />
                     </div>
@@ -137,7 +137,7 @@ const MenuAdmin = () => {
 
 
 
-                <div className="flex flex-row justify-start items-end mt-48 p-2 cursor-pointer hover:bg-red-700 hover:text-white  duration-75 rounded-lg ">
+                <div className="flex flex-row justify-start items-end mt-48 p-2 cursor-pointer hover:bg-red-700 hover:text-white  rounded-lg ">
                     <div >
                         <AiOutlineCloseCircle className="text-3xl" />
                     </div>

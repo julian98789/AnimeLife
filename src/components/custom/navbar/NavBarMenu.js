@@ -29,7 +29,7 @@ const NavBarMenu = () => {
                 </div>
 
                 <SheetTrigger>
-                    <RiMenu3Line className="text-3xl cursor-pointer hover:text-neutral-500  duration-75" />
+                    <RiMenu3Line className="text-3xl cursor-pointer hover:text-neutral-500 " />
                 </SheetTrigger>
             </div>
 
