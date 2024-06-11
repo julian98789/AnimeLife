@@ -1,5 +1,3 @@
-// src/routes/api/extract.js
-
 import puppeteer from 'puppeteer';
 import { NextResponse } from 'next/server';
 import pool from '@/db/MysqlConection';
