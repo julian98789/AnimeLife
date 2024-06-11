@@ -75,7 +75,7 @@ const LoginForm = () => {
     return <form
         onSubmit={handleSubmit(enviarDatos)}
 
-        className="w-full max-w-[350px] h-auto bg-[#1d2028] rounded-xl flex flex-col justify-center items-center gap-2 ">
+        className="w-full max-w-[350px] h-auto bg-[#1e1e1f] rounded-xl flex flex-col justify-center items-center gap-2 ">
 
         <div className=" py-7">
             <img className="h-28 w-auto cursor-none " src="/demonio.png" alt="your company" />

@@ -23,7 +23,9 @@ const NavBarAdmin = () => {
 
             <div className="w-full h-[60px] fixed top-0 left-0 bg-black flex flex-row justify-between items-center text-neutral-50 px-5 z-10">
                 <div className="w-[60px] h-[60px]">
-                    <Image src='/demonio.png' width={60} height={60} alt="" />
+                    <a href="/">
+                        <Image src='/demonio.png' width={60} height={60} alt="" />
+                    </a>
                 </div>
                 <div className={` text-red-600 text-4xl font-medium ${Macon.className}`}>
                     <span className="w-2">AnimeLife</span>
