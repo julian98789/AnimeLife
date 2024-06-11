@@ -2,7 +2,7 @@
 import useSession from "@/hook/useSession";
 import { useState } from "react";
 import { MdTableRestaurant } from "react-icons/md";
-import { FaUser } from "react-icons/fa";
+import { MdOutlineUpdate } from "react-icons/md";
 import { MdAdminPanelSettings } from "react-icons/md";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { FaHome } from "react-icons/fa";
@@ -47,27 +47,27 @@ const MenuAdmin = () => {
             return;
         }
 
-        const stopLoading = Loading(); 
+        const stopLoading = Loading();
         setIsLoading(true);
         fetch(`/api/extract`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ id: id }), 
+            body: JSON.stringify({ id: id }),
         })
             .then(response => response.json())
             .then(data => {
                 setAnimes(data);
                 console.log('Data extracted successfully:', data);
-                stopLoading(); 
+                stopLoading();
                 Swal.fire('Exitoso', `Se han cargado ${data.length} animes`, 'success'); // Show success alert
                 return fetch('/api/episode', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(data), 
+                    body: JSON.stringify(data),
                 });
             })
             .then(response => response.json())
@@ -107,14 +107,16 @@ const MenuAdmin = () => {
                 </div>
             </div>
             <div>
-                <div className="flex flex-row justify-start items-end p-2 cursor-pointer hover:bg-neutral-300  duration-75 rounded-lg ">
-                    <div  >
-                        <FaHome className="text-3xl " />
+                <a href="/">
+                    <div className="flex flex-row justify-start items-end p-2 cursor-pointer hover:bg-neutral-300  duration-75 rounded-lg ">
+                        <div  >
+                            <FaHome className="text-3xl " />
+                        </div>
+                        <div className="px-5">
+                            Inicio
+                        </div>
                     </div>
-                    <div className="px-5">
-                        <a href="/">Inicio</a>
-                    </div>
-                </div>
+                </a>
 
                 <div className="flex flex-row justify-start items-end p-2 cursor-pointer hover:bg-neutral-300  duration-75 rounded-lg ">
                     <div>
@@ -126,7 +128,7 @@ const MenuAdmin = () => {
                 </div>
                 <div className="flex flex-row justify-start items-end p-2 cursor-pointer hover:bg-neutral-300  duration-75 rounded-lg ">
                     <div >
-                        <FaUser className="text-3xl" />
+                        <MdOutlineUpdate className="text-3xl" />
                     </div>
                     <div className="px-5">
                         <button onClick={fetchAnimes} disabled={isLoading}>Actualizar Animes</button>
