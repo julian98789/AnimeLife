@@ -26,7 +26,7 @@ const Carousel = () => {
 
     return (
 
-        <div className="w-full flex flex-wrap justify-center overflow-x-auto cursor-default scrollbar-hide mx-[-15px]">
+        <div className="w-full flex flex-wrap justify-center overflow-x-auto cursor-default ">
             {animes.map((anime, index) => (
                 <div key={index} className="m-2 w-[177px] sm:w-[177px] lg:w-[182px] group" onClick={() => handleClick(anime)}>
                     <div className="block h-72 bg-white border border-gray-200 rounded-lg cursor-pointer shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 relative transition-transform duration-500 ease-in-out hover:scale-105">
