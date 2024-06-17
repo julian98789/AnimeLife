@@ -29,11 +29,6 @@ const MenuAdmin = () => {
     }
     console.log(id)
 
-
-
-
-
-
     const session = () => {
         setCerrarSession(true);
     };
@@ -49,13 +44,26 @@ const MenuAdmin = () => {
 
         const stopLoading = Loading();
         setIsLoading(true);
-        fetch(`/api/extract`, {
-            method: 'POST',
+        fetch('/api/delete', { 
+            method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ id: id }),
+
+
         })
+            .then(response => response.json())
+            .then(data => {
+                console.log('data delete sucess')
+
+                return fetch(`/api/extract`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ id: id }), 
+                });
+            })
             .then(response => response.json())
             .then(data => {
                 setAnimes(data);
@@ -78,18 +86,18 @@ const MenuAdmin = () => {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(data), // Send the data from the POST request in the body of the PUT request
+                    body: JSON.stringify(data),
                 });
             })
             .then(response => response.json())
             .then(data => {
-                // Here you can handle the response from the PUT request if needed
+
                 console.log('Data updated successfully:', data);
             })
             .catch(err => {
                 console.error('Failed to extract data:', err.message);
-                stopLoading(); // Stop the loading alert
-                Swal.fire('Error', 'Failed to fetch data', 'error'); // Show error alert
+                stopLoading();
+                Swal.fire('Error', 'Failed to fetch data', 'error');
             })
             .finally(() => {
                 setIsLoading(false);

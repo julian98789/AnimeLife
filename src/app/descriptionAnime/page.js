@@ -41,7 +41,7 @@ const DescriptionAnime = () => {
                     </div>
                 </div>
                 <footer className="w-full py-4 text-center text-neutral-100">
-                © <a href="https://github.com/julian98789" className="underline">Julian Gomez </a> , <a href="https://github.com/KeniBeck" className="underline">Deyler Mena</a>
+                © <a href="https://github.com/julian98789" className="underline">2024 Julian Gomez </a> , <a href="https://github.com/KeniBeck" className="underline">Deyler Mena</a>
                 </footer>
             </div>
         </>
